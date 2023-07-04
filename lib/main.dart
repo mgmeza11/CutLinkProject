@@ -1,6 +1,15 @@
+import 'package:cut_link_project/domain/repositories/link_repository.dart';
+import 'package:cut_link_project/domain/usecases/link_usecases.dart';
+import 'package:cut_link_project/view/main_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'dart:developer';
 
 void main() {
+  Get.put(LinkRepository());
+  Get.put(LinkUseCases());
+  Get.put(MainController());
+
   runApp(const MyApp());
 }
 
@@ -32,8 +41,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   late double _deviceHeight, _deviceWidth;
-  Color mainColor = Color.fromRGBO(52, 152, 219, 1.0);
-
+  final controllerLinkTextField = TextEditingController();
+  MainController mainController = Get.find();
   @override
   Widget build(BuildContext context) {
     _deviceHeight = MediaQuery.of(context).size.height;
@@ -104,8 +113,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _fieldLinkWidget(){
-    return const TextField(
+    return TextField(
         key: Key('TextFieldLink'),
+        controller: controllerLinkTextField,
         decoration: InputDecoration(
           filled: true,
           fillColor: Colors.white,
@@ -129,7 +139,11 @@ class _MyHomePageState extends State<MyHomePage> {
           color: const Color.fromRGBO(52,152,219, 1.0),
           borderRadius: BorderRadius.circular(10)),
       child: MaterialButton(
-        onPressed: () {},
+        onPressed: () {
+          var text = controllerLinkTextField.text;
+          log.printInfo(info: "text $text");
+          mainController.getShortLink(text);
+        },
         child: const Text(
           "Acortar link",
           style: TextStyle(color: Colors.white),

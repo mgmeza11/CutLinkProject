@@ -14,25 +14,21 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-
   const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       title: 'CutLink',
       theme: ThemeData(
-        scaffoldBackgroundColor: Color.fromRGBO(213, 216, 220, 1.0)
-      ),
+          scaffoldBackgroundColor: Color.fromRGBO(213, 216, 220, 1.0)),
       home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-
   const MyHomePage({super.key});
 
   @override
@@ -43,6 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
   late double _deviceHeight, _deviceWidth;
   final controllerLinkTextField = TextEditingController();
   MainController mainController = Get.find();
+
   @override
   Widget build(BuildContext context) {
     _deviceHeight = MediaQuery.of(context).size.height;
@@ -59,19 +56,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   alignment: Alignment.center,
                   child: _imageWidget(),
                 ),
-
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _titleWidget(),
-                    _containerForm()],
+                  children: [_titleWidget(), _containerForm()],
                 ),
-
               ],
-            )
-        ),
+            )),
       ),
     );
   }
@@ -98,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _containerForm() {
     return Container(
-      height: _deviceHeight * 0.22,
+      height: _deviceHeight * 0.25,
       padding: EdgeInsets.symmetric(vertical: _deviceHeight * 0.03),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -106,29 +98,40 @@ class _MyHomePageState extends State<MyHomePage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           _fieldLinkWidget(),
-          _actionButton()
+          _textShortLinkResultWidget("shortLink"),
+          _actionButton(),
         ],
       ),
     );
   }
 
-  Widget _fieldLinkWidget(){
+  Widget _fieldLinkWidget() {
     return TextField(
-        key: Key('TextFieldLink'),
-        controller: controllerLinkTextField,
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: Colors.white,
-          labelText: 'Ingrese el link',
-          labelStyle: TextStyle(
-              color: Colors.grey,
-              fontSize: 18
-          ),
-        ),
-      style: TextStyle(
-        fontSize: 18,
-        color: Colors.black
+      key: Key('TextFieldLink'),
+      controller: controllerLinkTextField,
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: Colors.white,
+        labelText: 'Ingrese el link',
+        labelStyle: TextStyle(color: Colors.grey, fontSize: 18),
       ),
+      style: TextStyle(fontSize: 18, color: Colors.black),
+    );
+  }
+
+  Widget _textShortLinkResultWidget(String shortLink) {
+
+    return Obx(() =>
+        Container(
+            width: _deviceWidth,
+            child: Text(
+              mainController.currentShortLink.value,
+              style:
+              TextStyle(
+                  color: Color.fromRGBO(52, 152, 219, 1.0),
+                  fontSize: 18),
+              textAlign: TextAlign.left,
+            ))
     );
   }
 
@@ -136,7 +139,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Container(
       width: _deviceWidth,
       decoration: BoxDecoration(
-          color: const Color.fromRGBO(52,152,219, 1.0),
+          color: const Color.fromRGBO(52, 152, 219, 1.0),
           borderRadius: BorderRadius.circular(10)),
       child: MaterialButton(
         onPressed: () {

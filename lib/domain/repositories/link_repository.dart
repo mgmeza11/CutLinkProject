@@ -9,6 +9,7 @@ class LinkRepository{
 
   LinkRepository() {
     remoteDataSource = LinkRemoteDataSource();
+    localDataSource = LinkLocalDataSource();
   }
 
   Future<String> getShortLink(String link) async {

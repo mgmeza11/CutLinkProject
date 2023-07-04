@@ -15,6 +15,7 @@ class _MyHomePageState extends State<MyHomePage> {
   late double _deviceHeight, _deviceWidth;
   final controllerLinkTextField = TextEditingController();
   MainController mainController = Get.find();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -70,9 +71,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _containerForm() {
     return Container(
-      height: _deviceHeight * 0.3,
+      height: _deviceHeight * 0.33,
       padding: EdgeInsets.symmetric(vertical: _deviceHeight * 0.03),
-      child: Column(
+      child: Form(
+      key: _formKey,
+        child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -83,13 +86,24 @@ class _MyHomePageState extends State<MyHomePage> {
           _historicalAccessWidget()
         ],
       ),
+      )
     );
   }
 
   Widget _fieldLinkWidget() {
-    return TextField(
+    return TextFormField(
       key: Key('TextFieldLink'),
       controller: controllerLinkTextField,
+      validator: (value){
+        String pattern = r'(http|https)://[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:/~+#-]*[\w@?^=%&amp;/~+#-])?';
+        RegExp regExp = RegExp(pattern);
+        if (value == null || value.isEmpty) {
+          return 'Debe ingresar una url';
+        }else if(!regExp.hasMatch(value)){
+          return 'No es una url válida. Ejemplo: https://www.google.com';
+        }
+        return null;
+      },
       decoration: InputDecoration(
         filled: true,
         fillColor: Colors.white,
@@ -97,6 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
         labelStyle: TextStyle(color: Colors.grey, fontSize: 18),
       ),
       style: TextStyle(fontSize: 18, color: Colors.black),
+
     );
   }
 
@@ -124,9 +139,12 @@ class _MyHomePageState extends State<MyHomePage> {
           borderRadius: BorderRadius.circular(10)),
       child: MaterialButton(
         onPressed: () {
-          var text = controllerLinkTextField.text;
-          log.printInfo(info: "text $text");
-          mainController.getShortLink(text);
+          if(_formKey.currentState!.validate()){
+            var text = controllerLinkTextField.text;
+            log.printInfo(info: "text $text");
+            mainController.getShortLink(text);
+          }
+
         },
         child: const Text(
           "Acortar link",

@@ -11,7 +11,7 @@ class LinkRemoteDataSource {
           "Content-Type": "application/x-www-form-urlencoded",
         },
         encoding: Encoding.getByName('utf-8'),
-        body: {'url': link});
+        body: {'url': link}).timeout(Duration(seconds: 5));
 
     if (response.statusCode == 200) {
       log.printInfo(info: "status 200");

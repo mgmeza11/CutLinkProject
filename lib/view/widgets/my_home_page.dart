@@ -71,12 +71,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _containerForm() {
     return Container(
-      height: _deviceHeight * 0.33,
-      padding: EdgeInsets.symmetric(vertical: _deviceHeight * 0.03),
+      height: _deviceHeight * 0.38,
+      padding: EdgeInsets.symmetric(vertical: _deviceHeight * 0.02),
       child: Form(
       key: _formKey,
         child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.end,
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -158,6 +158,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return  Container(
       padding: EdgeInsets.symmetric(vertical: _deviceHeight * 0.05),
       child: LinearProgressIndicator(
+        key: Key('progressBarIndicator'),
         backgroundColor: Colors.blue.shade200,
         valueColor: AlwaysStoppedAnimation(Colors.blue.shade400),
         minHeight: 15,

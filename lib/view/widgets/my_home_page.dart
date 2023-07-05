@@ -95,11 +95,9 @@ class _MyHomePageState extends State<MyHomePage> {
       key: Key('TextFieldLink'),
       controller: controllerLinkTextField,
       validator: (value){
-        String pattern = r'(http|https)://[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:/~+#-]*[\w@?^=%&amp;/~+#-])?';
-        RegExp regExp = RegExp(pattern);
         if (value == null || value.isEmpty) {
           return 'Debe ingresar una url';
-        }else if(!regExp.hasMatch(value)){
+        }else if(_validateFromatLink(value)){
           return 'No es una url válida. Ejemplo: https://www.google.com';
         }
         return null;
@@ -190,5 +188,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 textAlign: TextAlign.center,
               ),
             ));
+  }
+
+  bool _validateFromatLink(String link){
+    String pattern = r'(http|https)://[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:/~+#-]*[\w@?^=%&amp;/~+#-])?';
+    RegExp regExp = RegExp(pattern);
+    return !regExp.hasMatch(link);
   }
 }

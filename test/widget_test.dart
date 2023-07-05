@@ -24,6 +24,13 @@ class MockMainController extends GetxService
       RxString  get currentShortLink => _currentShortLink;
       @override
       RxBool get isLoading => _isLoading;
+
+      @override
+      Future<void> getShortLink(link) async {
+        if(link == "https://www.google.com"){
+          _currentShortLink.value = "https://cleanuri.com/xo06VK";
+        }
+      }
 }
 void main() {
   setUp(() {
@@ -121,6 +128,23 @@ void main() {
     expect(find.text('Acortar link'), findsOneWidget);
     expect(find.byKey(Key('progressBarIndicator')), findsNothing);
 
+  });
+
+  testWidgets('validate no error valid url', (WidgetTester tester) async {
+    // Build our app and trigger a frame.
+    WidgetsFlutterBinding.ensureInitialized();
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: MyHomePage(),
+      ),
+    );
+    await tester.pump();
+    await tester.enterText(find.byKey(Key('TextFieldLink')), 'https://www.google.com');
+    await tester.tap(find.text('Acortar link'));
+    await tester.pump(const Duration(milliseconds: 100));
+    expect(find.text('No es una url válida. Ejemplo: https://www.google.com'), findsNothing);
+    expect(find.text('Debe ingresar una url'), findsNothing);
   });
 
 

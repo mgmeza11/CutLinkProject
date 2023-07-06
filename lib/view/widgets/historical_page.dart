@@ -21,6 +21,11 @@ class _HistoricalPageState extends State<HistoricalPage> {
     _deviceWidth = MediaQuery.of(context).size.width;
     historicalController.getAllLinks();
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: _titleWidget(),
+      ),
       body: SafeArea(
         child: Container(
             height: _deviceHeight,
@@ -31,7 +36,6 @@ class _HistoricalPageState extends State<HistoricalPage> {
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _titleWidget(),
                     _getXlistView()
                   ],
                 ),
@@ -46,7 +50,7 @@ class _HistoricalPageState extends State<HistoricalPage> {
       "#CutLink",
       style: TextStyle(
           color: Color.fromRGBO(52, 152, 219, 1.0),
-          fontSize: 70,
+          fontSize: 30,
           fontWeight: FontWeight.w800),
     );
   }

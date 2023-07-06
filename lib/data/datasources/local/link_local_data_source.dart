@@ -5,7 +5,7 @@ import '../../../domain/models/LinkData.dart';
 
 class LinkLocalDataSource {
   Database? _database;
-  String tableName = 'links';
+  static const String tableName = 'links';
 
   Future<Database> get database async {
     if (_database != null) return _database!;

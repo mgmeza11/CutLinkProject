@@ -11,12 +11,13 @@ class LinkRemoteDataSource {
           "Content-Type": "application/x-www-form-urlencoded",
         },
         encoding: Encoding.getByName('utf-8'),
-        body: {'url': link}).timeout(Duration(seconds: 5));
+        body: {'url': link})
+        .timeout(const Duration(seconds: 5));
 
     if (response.statusCode == 200) {
       log.printInfo(info: "status 200");
-      var jsonString = response.body;
-      var result = jsonDecode(jsonString)['result_url'];
+      final String jsonString = response.body;
+      final String result = jsonDecode(jsonString)['result_url'];
       log.printInfo(info: 'status 200 $result');
       return result;
     }else{

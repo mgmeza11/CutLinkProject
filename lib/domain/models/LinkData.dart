@@ -1,17 +1,20 @@
 
 class LinkData{
   int? id;
-  String link;
+  String originalLink;
+  String? shortLink;
 
   LinkData({
     this.id,
-    required this.link
+    required this.originalLink,
+    this.shortLink
   });
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'link': link
+      'original_link': originalLink,
+      'short_link': shortLink
     };
   }
 }

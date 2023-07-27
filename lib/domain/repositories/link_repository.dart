@@ -14,7 +14,7 @@ class LinkRepository{
 
   Future<String> getShortLink(String link) async {
     String shortLink = await remoteDataSource.getShortLink(link);
-    addLink(LinkData(link: shortLink));
+    addLink(LinkData(originalLink: link, shortLink: shortLink));
     return Future.value(shortLink);
   }
 

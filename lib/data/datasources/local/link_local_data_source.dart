@@ -1,5 +1,6 @@
-import 'package:sqflite/sqflite.dart';
+
 import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
 
 import '../../../domain/models/LinkData.dart';
 
@@ -20,10 +21,11 @@ class LinkLocalDataSource {
 
   Future _onCreate(Database db, int version) async {
     await db.execute(
-        'CREATE TABLE links (id INTEGER PRIMARY KEY AUTOINCREMENT, link TEXT)');
+        'CREATE TABLE links (id INTEGER PRIMARY KEY AUTOINCREMENT, original_link TEXT, short_link TEXT)');
   }
 
   Future<List<LinkData>> getAllLinks() async {
+    await Future.delayed(Duration(seconds: 2));
     final db = await database;
 
     List<Map<String, dynamic>> maps = await db.query(tableName);
@@ -31,7 +33,8 @@ class LinkLocalDataSource {
     return List.generate(maps.length, (i) {
       return LinkData(
         id: maps[i]['id'],
-        link: maps[i]['link'],
+        originalLink: maps[i]['original_link'],
+        shortLink: maps[i]['short_link']
       );
     });
   }

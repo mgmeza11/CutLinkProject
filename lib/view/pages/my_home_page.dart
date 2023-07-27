@@ -1,7 +1,9 @@
+import 'package:cut_link_project/view/widgets/dialog_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:developer';
 import '../controllers/main_controller.dart';
+import '../widgets/status_icon_widget.dart';
 import 'historical_page.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -91,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _fieldLinkWidget() {
     return TextFormField(
-      key: Key('TextFieldLink'),
+      key: const Key('TextFieldLink'),
       controller: controllerLinkTextField,
       validator: (value){
         if (value == null || value.isEmpty) {
@@ -141,7 +143,6 @@ class _MyHomePageState extends State<MyHomePage> {
             log.printInfo(info: "text $text");
             mainController.getShortLink(text);
           }
-
         },
         child: const Text(
           "Acortar link",
@@ -194,4 +195,11 @@ class _MyHomePageState extends State<MyHomePage> {
     RegExp regExp = RegExp(pattern);
     return !regExp.hasMatch(link);
   }
+
+  Future<void> _dialogBuilder(BuildContext context, String message, StatusIconType statusIconType) {
+    return showDialog<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return DialogWidget(statusIconType, message);
+        });}
 }

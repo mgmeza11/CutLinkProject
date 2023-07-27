@@ -1,3 +1,4 @@
+import 'package:cut_link_project/view/widgets/status_icon_widget.dart';
 import 'package:flutter/material.dart';
 enum ContainerStatus{
   content,
@@ -32,7 +33,13 @@ class ContainerLoadingWidget extends StatelessWidget{
             child: _loadingWidget()),
         Visibility(
             visible: configuration.status == ContainerStatus.empty,
-            child: content),
+            child: Center(
+                child: StatusIconWidget(
+                    StatusIconType.error,
+                    configuration.emptyMessage
+                )
+            ),
+    )
       ],
     );
   }

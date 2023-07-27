@@ -32,7 +32,7 @@ class _HistoricalPageState extends State<HistoricalPage> {
               Container(
                 height: _deviceHeight,
                 width: _deviceWidth,
-                padding: EdgeInsets.symmetric(horizontal: _deviceWidth * 0.05),
+                padding: EdgeInsets.symmetric(horizontal: _deviceWidth * 0.02),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.start,

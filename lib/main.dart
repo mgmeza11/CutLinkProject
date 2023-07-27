@@ -1,12 +1,13 @@
 import 'package:cut_link_project/domain/repositories/link_repository.dart';
 import 'package:cut_link_project/domain/usecases/link_usecases.dart';
 import 'package:cut_link_project/view/controllers/main_controller.dart';
+import 'package:cut_link_project/view/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 
 import 'view/controllers/historical_controller.dart';
-import 'view/widgets/my_home_page.dart';
+import 'view/pages/my_home_page.dart';
 
 void main() {
   Get.put(LinkRepository());
@@ -26,8 +27,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'CutLink',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-          scaffoldBackgroundColor: Color.fromRGBO(213, 216, 220, 1.0)),
+      theme: Themes.themeLight,
       home: const MyHomePage(),
     );
   }

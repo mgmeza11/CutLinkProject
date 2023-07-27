@@ -71,7 +71,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _containerForm() {
     return Container(
-      height: _deviceHeight * 0.38,
       padding: EdgeInsets.symmetric(vertical: _deviceHeight * 0.02),
       child: Form(
       key: _formKey,

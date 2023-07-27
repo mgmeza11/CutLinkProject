@@ -7,7 +7,7 @@
 
 import 'package:cut_link_project/domain/usecases/link_usecases.dart';
 import 'package:cut_link_project/view/controllers/main_controller.dart';
-import 'package:cut_link_project/view/widgets/my_home_page.dart';
+import 'package:cut_link_project/view/pages/my_home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';

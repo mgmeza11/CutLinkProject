@@ -1,3 +1,4 @@
+import 'package:cut_link_project/view/widgets/container_loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -27,20 +28,19 @@ class _HistoricalPageState extends State<HistoricalPage> {
         title: _titleWidget(),
       ),
       body: SafeArea(
-        child: Container(
-            height: _deviceHeight,
-            width: _deviceWidth,
-            padding: EdgeInsets.symmetric(horizontal: _deviceWidth * 0.05),
-            child:
-                Column(
+        child: Obx(() => ContainerLoadingWidget(
+              Container(
+                height: _deviceHeight,
+                width: _deviceWidth,
+                padding: EdgeInsets.symmetric(horizontal: _deviceWidth * 0.05),
+                child: Column(
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _getXlistView()
-                  ],
+                  children: [_getXlistView()],
                 ),
-
-            ),
+              ),
+              historicalController.statusLoading.value,
+            )),
       ),
     );
   }
@@ -55,35 +55,39 @@ class _HistoricalPageState extends State<HistoricalPage> {
     );
   }
 
-
-
   Widget _getXlistView() {
     return SizedBox(
       height: _deviceHeight * 0.7,
-      child: Obx(
-            () => ListView.builder(
+      child: ListView.builder(
           itemCount: historicalController.linkList.length,
           itemBuilder: (context, index) {
-            final user = historicalController.linkList[index];
-            return Card(
-              child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Text(user.link,
-                    style:
-                    TextStyle(
-                        color: Color.fromRGBO(2, 51, 83, 1.0),
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        decoration: TextDecoration.underline,
-                        decorationThickness: 2
-                    ),
-                  )
+            final link = historicalController.linkList[index];
+            return ListTile(
+              enabled: false,
+              leading: const CircleAvatar(
+                backgroundImage: AssetImage("assets/images/link_icon.png"),
+              ),
+              title: Text(link.shortLink!,
+                style: const TextStyle(
+                    color: Color.fromRGBO(52, 152, 219, 1.0),
+                    fontSize: 16),
+              ),
+              subtitle: Text(link.originalLink,
+                style: const TextStyle(
+                    color: Colors.grey,
+                    fontSize: 16),),
+              trailing: IconButton(
+                onPressed: () { 
+                  
+                },
+                icon: const Icon(
+                  Icons.delete,
+                  color: Colors.red,),
+                
               ),
             );
           },
         ),
-      ),
     );
-
   }
 }

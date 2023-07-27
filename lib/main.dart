@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'CutLink',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
           scaffoldBackgroundColor: Color.fromRGBO(213, 216, 220, 1.0)),
       home: const MyHomePage(),

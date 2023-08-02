@@ -7,10 +7,10 @@ import '../../domain/usecases/link_usecases.dart';
 class HistoricalController extends GetxController {
   LinkUseCases linkUseCase = Get.find();
 
-  var _linkList = <LinkData>[].obs;
+  final _linkList = <LinkData>[].obs;
   List<LinkData> get linkList => _linkList;
 
-  var _statusLoading = ContainerLoadingWidgetConfiguration(ContainerStatus.content, null, null).obs;
+  final _statusLoading = ContainerLoadingWidgetConfiguration(ContainerStatus.content, null, null).obs;
   Rx<ContainerLoadingWidgetConfiguration> get statusLoading => _statusLoading;
 
   Future<void> getAllLinks() async {

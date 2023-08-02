@@ -6,21 +6,16 @@ import '../controllers/main_controller.dart';
 import '../widgets/status_icon_widget.dart';
 import 'historical_page.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
+class MyHomePage extends StatelessWidget {
   late double _deviceHeight, _deviceWidth;
+  late BuildContext context;
   final controllerLinkTextField = TextEditingController();
   MainController mainController = Get.find();
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    this.context = context;
     _deviceHeight = MediaQuery.of(context).size.height;
     _deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -82,7 +77,6 @@ class _MyHomePageState extends State<MyHomePage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           _fieldLinkWidget(),
-          _textShortLinkResultWidget("shortLink"),
           _actionButton(),
           _historicalAccessWidget()
         ],
@@ -103,30 +97,13 @@ class _MyHomePageState extends State<MyHomePage> {
         }
         return null;
       },
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         filled: true,
-        fillColor: Colors.white,
         labelText: 'Ingrese el link',
-        labelStyle: TextStyle(color: Colors.grey, fontSize: 18),
+        labelStyle: TextStyle( fontSize: 18),
       ),
-      style: TextStyle(fontSize: 18, color: Colors.black),
+      style: TextStyle(fontSize: 18),
 
-    );
-  }
-
-  Widget _textShortLinkResultWidget(String shortLink) {
-
-    return Obx(() =>
-        Container(
-            width: _deviceWidth,
-            child: Text(
-              mainController.currentShortLink.value,
-              style:
-              TextStyle(
-                  color: Color.fromRGBO(52, 152, 219, 1.0),
-                  fontSize: 18),
-              textAlign: TextAlign.left,
-            ))
     );
   }
 
@@ -134,14 +111,15 @@ class _MyHomePageState extends State<MyHomePage> {
     return Container(
       width: _deviceWidth,
       decoration: BoxDecoration(
-          color: const Color.fromRGBO(52, 152, 219, 1.0),
-          borderRadius: BorderRadius.circular(10)),
+          color: Theme.of(context).primaryColor,
+          ),
       child: MaterialButton(
-        onPressed: () {
+        onPressed: () async {
           if(_formKey.currentState!.validate()){
             var text = controllerLinkTextField.text;
             log.printInfo(info: "text $text");
-            mainController.getShortLink(text);
+            await mainController.getShortLink(text);
+            _dialogBuilder(context, 'Su link es: ${mainController.currentShortLink.value}', StatusIconType.ok);
           }
         },
         child: const Text(
@@ -179,7 +157,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 'Ver histórico',
                 style:
                 TextStyle(
-                    color: Color.fromRGBO(2, 51, 83, 1.0),
+                    color: Theme.of(context).focusColor,
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
                     decoration: TextDecoration.underline,

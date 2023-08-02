@@ -28,7 +28,8 @@ class MyApp extends StatelessWidget {
       title: 'CutLink',
       debugShowCheckedModeBanner: false,
       theme: Themes.themeLight,
-      home: const MyHomePage(),
+      darkTheme: Themes.themeDark,
+      home: MyHomePage(),
     );
   }
 }
